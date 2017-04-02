@@ -248,14 +248,14 @@ const getGitIgnoreFilter = opts => {
 			.filter(l => l.charAt(0) !== '#')
 			.map(l => {
 				const negated = l.charAt(0) === '!';
-				const pattern = path.join(base, negated ? l.slice(1) : l);
+				const pattern = path.posix.join(base, negated ? l.slice(1) : l);
 				return negated ? '!' + pattern : pattern;
 			});
 
 		i.add(lines)
 	});
 
-	return p => !i.ignores(path.relative(opts.cwd, p));
+	return p => !i.ignores(slash(path.relative(opts.cwd, p)));
 }
 
 const preprocess = opts => {
