@@ -56,11 +56,9 @@ test('ignore files in .gitignore', async t => {
 	t.true(err.stdout.indexOf('bar.js') !== -1);
 });
 
-test.failing('negative gitignores', async t => {
+test('negative gitignores', async t => {
 	const cwd = path.join(__dirname, 'fixtures/negative-gitignore');
-
-	const err = await t.throws(execa(`../../../cli.js`, [`${cwd}/bar.js`, '--no-local'], {cwd}));
-	t.is(err.stdout.indexOf('foo.js'), -1, 'Should not lint foo.js');
+	await execa(`../../../cli.js`, [`${cwd}/bar.js`, '--no-local'], {cwd});
 });
 
 test('supports being extended with a shareable config', async t => {
